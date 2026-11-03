@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SQL Shield — Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Welcome, {{ display_name }}</h1>
+      <p class="subtitle">You are signed in via {{ 'vulnerable' if mode == 'vulnerable' else 'secure' }} mode.</p>
+      {% if mode == 'vulnerable' %}
+      <div class="query-box">
+        <div class="query-title">How you got in</div>
+        <code>No real password was checked — the injected SQL made the WHERE clause always true.</code>
+      </div>
+      {% endif %}
+      <br>
+      <a class="link" href="{{ url_for('logout') }}">Log out</a>
+    </div>
+    <footer>SQL Shield · Educational Security Project</footer>
+  </div>
+</body>
+</html>
