@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SQL Shield</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>SQL Shield</h1>
+      <p class="subtitle">A local lab demonstrating SQL injection authentication bypass.</p>
+      <p class="section-label">Choose a login mode to begin</p>
+      <div class="mode-grid">
+        <a class="mode-box vulnerable" href="{{ url_for('login', mode='vulnerable') }}">
+          <div class="mode-title">⚠️ Vulnerable</div>
+          <div class="mode-sub">Unsafe SQL query</div>
+        </a>
+        <a class="mode-box secure" href="{{ url_for('login', mode='secure') }}">
+          <div class="mode-title">✅ Secure</div>
+          <div class="mode-sub">Parameterized query</div>
+        </a>
+      </div>
+      <div class="demo-box">
+        <div class="demo-title">Demo credentials</div>
+        <div>Username: admin</div>
+        <div>Password: Admin@123</div>
+      </div>
+    </div>
+    <footer>SQL Shield · Educational Security Project</footer>
+  </div>
+</body>
+</html>
