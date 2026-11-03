@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IP Ping Utility</title>
+
+    <style>
+        *{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    text-align: center;
+    padding: 50px 20px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #ffffff;
+    padding: 40px;
+    max-width: 650px;
+    width: 100%;
+    margin: 40px auto;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #172554;
+    font-size: 32px;
+}
+
+p {
+    color: #475569;
+}
+
+input {
+    padding: 14px;
+    width: 90%;
+    margin: 20px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+button {
+    padding: 13px 22px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+.vulnerable {
+    background: #dc2626;
+}
+
+.secure {
+    background: #16a34a;
+}
+
+pre {
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    min-height: 60px;
+}
+
+h3 {
+    color: #172554;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>IP Ping Utility</h1>
+
+    <p>Enter IP Address</p>
+
+    <input type="text" id="ip" value="127.0.0.1">
+
+    <br>
+
+    <button class="vulnerable" onclick="ping('vulnerable')">
+        Vulnerable Ping
+    </button>
+
+    <button class="secure" onclick="ping('secure')">
+        Secure Ping
+    </button>
+
+    <h3>Output</h3>
+
+    <pre id="output">Waiting for input...</pre>
+
+</div>
+
+<script>
+
+async function ping(type) {
+
+    const ip = document.getElementById("ip").value;
+
+    const output = document.getElementById("output");
+
+    output.textContent = "Processing...";
+
+    try {
+
+        const response = await fetch("/ping-" + type, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({ ip })
+
+        });
+
+        const result = await response.json();
+
+        output.textContent = JSON.stringify(result, null, 2);
+
+    } catch (error) {
+
+        output.textContent = error.message;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
